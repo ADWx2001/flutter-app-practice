@@ -5,12 +5,12 @@ void main() {
     home: Scaffold(
       backgroundColor: Colors.blue.shade50,
       appBar: AppBar(
-        title: const Text("I am Pakaya"),
+        title: const Text("I am Rich"),
         backgroundColor: Colors.blueAccent[200],
       ),
       body: const Center(
         child: Image(
-          image: NetworkImage('https://st3.depositphotos.com/1005145/15351/i/450/depositphotos_153516954-stock-photo-summer-landscape-with-flowers-in.jpg')
+          image: AssetImage('images/i_am_rich_app_icon.png')
           ),
       )
     )
