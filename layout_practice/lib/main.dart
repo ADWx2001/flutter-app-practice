@@ -23,7 +23,13 @@ class MyApp extends StatelessWidget {
                 color: Colors.blue,
               ),
               child: const Center(
-                child: Text("Flutter container")
+                child: Text("Flutter container",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30.0
+                  ),
+                ),
               ),
             ),
           ),
