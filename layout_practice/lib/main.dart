@@ -13,26 +13,19 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       home: SafeArea(
         child: Scaffold(
-          body: Center(
-            child: Container(
-              width: 300,
-              height: 300,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: List.empty(growable: true),
-                color: Colors.blue,
-              ),
-              child: const Center(
-                child: Text("Flutter container",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30.0
-                  ),
-                ),
-              ),
+          body: Container(
+            width: 300,
+            height: 300,
+            color: Colors.yellow,
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Hello world"),
+                Text("data"),
+                Icon(Icons.access_alarm)
+              ],
             ),
-          ),
+          ) 
         ),
       ),
     );
