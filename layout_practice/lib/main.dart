@@ -13,19 +13,102 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       home: SafeArea(
         child: Scaffold(
-          body: Container(
-            width: 300,
-            height: 300,
-            color: Colors.yellow,
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+          appBar: AppBar(
+            leading: const Icon(
+              Icons.menu,
+              color: Colors.white,
+            ),
+            title: const Text(
+              'Flutter Demo',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            actions:const <Widget>[
+              Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
+              Icon(
+                Icons.settings,
+                color: Colors.white,
+              )
+            ],
+            backgroundColor: Colors.purple,
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text("Hello world"),
-                Text("data"),
-                Icon(Icons.access_alarm)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      color: Colors.green,
+                    ),
+                    Container(
+                      width: 100,
+                      height: 100,
+                      color: Colors.green,
+                    ),
+                  ],
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 100,
+                  color: Colors.green,
+                ),
+                Container(
+                  height: 300,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            width: 100,
+                            height: 100,
+                            color: Colors.blue,
+                          ),
+                          Container(
+                            width: 100,
+                            height: 100,
+                            color: Colors.blue,
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            width: 100,
+                            height: 50,
+                            color: Colors.purple,
+                          ),
+                          Container(
+                            width: 100,
+                            height: 50,
+                            color: Colors.purple,
+                          ),
+                          Container(
+                            width: 100,
+                            height: 50,
+                            color: Colors.purple,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
-          ) 
+          ), 
         ),
       ),
     );
