@@ -13,16 +13,18 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       home: SafeArea(
         child: Scaffold(
-          body: Container(
-            width: 300,
-            height: 300,
-            margin: EdgeInsets.all(40),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.blue,
-            ),
-            child: const Center(
-              child: Text("Flutter container")
+          body: Center(
+            child: Container(
+              width: 300,
+              height: 300,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: List.empty(growable: true),
+                color: Colors.blue,
+              ),
+              child: const Center(
+                child: Text("Flutter container")
+              ),
             ),
           ),
         ),
