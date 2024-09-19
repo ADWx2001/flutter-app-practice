@@ -7,39 +7,23 @@ class MyHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.map_rounded),
-        title: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              "Delivery Address",
-              style: TextStyle(
-                fontSize: 12, 
-                color: Colors.grey,
-                ),
-            ),
-            Text("Address goes here", 
-            style: TextStyle(
-              fontSize: 15, 
-              color: Colors.black, 
-              fontWeight: FontWeight.bold),
-              ),
-          ],
-        ),
-        actions: [
-          Container(
-            width: 50,
-            height: 50,
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            width: 30,
+            height: 30,
             decoration: BoxDecoration(
+              color: Colors.purple,
               borderRadius: BorderRadius.circular(100),
-              color: Colors.orange,
             ),
-            child: Icon(
-              Icons.shopping_bag,
-              size: 30.0,
+            child: Center(
+              child: Icon(
+                color: Colors.white,
+                Icons.location_on,
+              ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
