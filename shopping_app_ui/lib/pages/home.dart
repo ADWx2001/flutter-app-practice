@@ -31,13 +31,48 @@ class Home extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 ),
               ),
-              ProductCard(
-                title: 'Vegetable', 
-                description: 'Small description heree', 
-                textColor: Colors.white, 
-                backgroundColor: Colors.green, 
-                boxColor: Colors.yellow,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ProductCard(
+                    title: 'Vegetable', 
+                    description: 'Small description heree', 
+                    textColor: Colors.white, 
+                    backgroundColor: Colors.green, 
+                    boxColor: Colors.yellow,
+                  ),
+                  ProductCard(
+                    title: 'Toys', 
+                    description: 'Small description heree', 
+                    textColor: Colors.white, 
+                    backgroundColor: Colors.purple, 
+                    boxColor: Colors.white,
+                  ),
+                ],
               ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ProductCard(
+                    title: 'Vegetable', 
+                    description: 'Small description heree', 
+                    textColor: Colors.white, 
+                    backgroundColor: Colors.green, 
+                    boxColor: Colors.yellow,
+                  ),
+                  ProductCard(
+                    title: 'Toys', 
+                    description: 'Small description heree', 
+                    textColor: Colors.white, 
+                    backgroundColor: Colors.purple, 
+                    boxColor: Colors.white,
+                  ),
+                ],
+              ),
+
             ],
           ),
         ),

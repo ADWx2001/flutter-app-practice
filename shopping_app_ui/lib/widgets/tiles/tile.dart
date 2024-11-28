@@ -16,7 +16,7 @@ const ProductCard({
   final Color backgroundColor;
   final Color boxColor;
   final double cardHeight = 200;
-  final double cardWidth = 190;
+  final double cardWidth = 180;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ const ProductCard({
           borderRadius: BorderRadius.circular(20),
           color: backgroundColor,
         ),
-        
+
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
