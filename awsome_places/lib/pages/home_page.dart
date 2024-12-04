@@ -1,0 +1,67 @@
+import 'package:flutter/material.dart';
+import '../utils/colors.dart' as colors;
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: SafeArea(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Awsome",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: colors.mainTextColor,
+                            fontWeight: FontWeight.w300
+                          ),
+                        ),
+                        const Text("Places",
+                          style: TextStyle(
+                            fontSize: 40,
+                            color: colors.mainColor,
+                            fontWeight: FontWeight.w700
+                          ),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(100.0)
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text("welcome to the app jkjk jnauerco uahf cmwjeof amsdiqjjndmmaddljii cndkm mkmadm iikmadijmmaldiaoj niijqoophtm blmaoiihf anrgjnas  oioalkmdnamd iiandk kdadkff lkamddoiegma nnlw oskdo owkqiiuht meufk mcod difjqm fwmtuu kakdnwd lla kmdken asnq opokrik lkcjr owqdm mwopm icwmq ijrm kcmwi kmckej mcewj kcmwi lodq ldmlkmfn lkwkut vnuiw oc llkvmvrokmm cioc kqwoflma dj kdjfk wjqvniommfwoeeik",
+                style: TextStyle(
+                            fontSize: 16,
+                          ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Image.asset("assets/Sigiriya.jpeg")
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
