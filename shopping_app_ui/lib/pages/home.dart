@@ -38,8 +38,8 @@ class Home extends StatelessWidget {
                     title: 'Vegetable', 
                     description: 'Small description heree', 
                     textColor: Colors.white, 
-                    backgroundColor: Colors.green, 
-                    boxColor: Colors.yellow,
+                    backgroundColor: Colors.green,
+                    boxColor: Colors.red,
                   ),
                   ProductCard(
                     title: 'Toys', 
