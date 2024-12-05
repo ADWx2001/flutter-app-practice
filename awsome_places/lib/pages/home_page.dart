@@ -1,3 +1,4 @@
+import 'package:awsome_places/pages/natural_wonders.dart';
 import 'package:awsome_places/widgets/home/category_card.dart';
 import 'package:flutter/material.dart';
 import '../utils/colors.dart' as colors;
@@ -77,18 +78,33 @@ class HomePage extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CategoryCard(
-                      category: "Category",
-                      bgColor: colors.mainColor,
-                      width: 175,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context, MaterialPageRoute(
+                            builder: (context) =>const NaturalWonders(),
+                          )
+                        );
+                      },
+
+                      child: const CategoryCard(
+                        category: "Category",
+                        bgColor: colors.mainColor,
+                        width: 175,
+                      ),
                     ),
-                    CategoryCard(
-                      category: "Category",
-                      bgColor: colors.secondCategoryColor,
-                      width: 175,
+
+                    GestureDetector(
+                      onTap: () {},
+
+                      child: const CategoryCard(
+                        category: "Category",
+                        bgColor: colors.secondCategoryColor,
+                        width: 175,
+                      ),
                     ),
                   ],
                 ),
@@ -109,6 +125,12 @@ class HomePage extends StatelessWidget {
                       width: 175,
                     ),
                   ],
+                ),
+                const SizedBox(height: 10,),
+                const CategoryCard(
+                  category: "Book a Ride", 
+                  bgColor: Colors.yellow, 
+                  width:double.infinity 
                 ),
               ],
             ),
