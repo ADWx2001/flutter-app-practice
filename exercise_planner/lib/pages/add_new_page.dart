@@ -10,6 +10,13 @@ class AddNewPage extends StatefulWidget {
 class _AddNewPageState extends State<AddNewPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Scaffold(
+          body: Text("Add new "),
+        ),
+      ),
+    );;
   }
 }

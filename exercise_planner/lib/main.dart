@@ -31,25 +31,24 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Exercise App',
-      home: SafeArea(
-        child: Scaffold(
-          bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: Colors.blue,
-            unselectedItemColor: Colors.grey,
-            currentIndex: _currentIndex,
-            onTap: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-              BottomNavigationBarItem(icon: Icon(Icons.add), label: "Add"),
-              BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favourites"),
-              BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-            ],
-          ),
+      home: Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Colors.blue,
+          unselectedItemColor: Colors.grey,
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(icon: Icon(Icons.add), label: "Add"),
+            BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favourites"),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+          ],
         ),
+        body: _pages[_currentIndex],
       ),
     );
   }
