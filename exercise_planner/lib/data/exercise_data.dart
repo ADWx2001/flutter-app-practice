@@ -1,4 +1,4 @@
-import 'package:app_06_workout_planer/models/exercise_model.dart';
+import 'package:exercise_planner/models/exercise_model.dart';
 
 class ExerciseData {
   final List<Exercise> exerciseList = [
