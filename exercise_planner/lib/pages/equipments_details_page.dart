@@ -5,6 +5,7 @@ import 'package:exercise_planner/widgets/equipment_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+
 class EquipmentDetailsPage extends StatefulWidget {
   final String title;
   final String description;
