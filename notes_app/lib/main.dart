@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/pages/home_page.dart';
 import 'package:notes_app/utils/router.dart';
 
 void main(){
