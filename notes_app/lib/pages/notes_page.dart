@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/services/note_servies.dart';
 import 'package:notes_app/utils/colors.dart';
 import 'package:notes_app/utils/router.dart';
 
@@ -10,6 +11,20 @@ class NotesPage extends StatefulWidget {
 }
 
 class _NotesPageState extends State<NotesPage> {
+
+  final NoteServies noteService = NoteServies();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _checkIfUserIsNew;
+  }
+
+  void _checkIfUserIsNew() async{
+    final bool isNewUser = await noteService.isFirstTime();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
