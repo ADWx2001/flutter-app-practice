@@ -1,5 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:notes_app/models/note_model.dart';
+import 'package:notes_app/pages/notes_page.dart';
 import 'package:uuid/uuid.dart';
 
 class NoteServies {
@@ -54,6 +55,19 @@ class NoteServies {
     }
 
     return [];
+  }
+
+  //loop througn all notes and create an object where the key is the category and the value is the notes in that category
+  Map<String, List<Note>> getNotesByCategoryMap(List<Note> allNotes) {
+    final Map<String, List<Note>> notesByCategory = {};
+    for (final note in allNotes) {
+      if (notesByCategory.containsKey(note.category)) {
+        notesByCategory[note.category]!.add(note);
+      } else {
+        notesByCategory[note.category] = [note];
+      }
+    }
+    return notesByCategory;
   }
 
 }
