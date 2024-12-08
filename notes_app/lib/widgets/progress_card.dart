@@ -31,6 +31,7 @@ class _ProgressCardState extends State<ProgressCard> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
 
               const Text(
@@ -38,7 +39,12 @@ class _ProgressCardState extends State<ProgressCard> {
                 style: AppTextStyles.appSubtitle
               ),
               Text(
-                " You have completed ${widget.completedTasks} out of ${widget.totalTasks}"
+                " You have completed ${widget.completedTasks} out of ${widget.totalTasks}",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.aWhiteColor,
+                  
+                ),
               ),
             ],
           ),
@@ -54,7 +60,8 @@ class _ProgressCardState extends State<ProgressCard> {
                 "${((widget.completedTasks/widget.totalTasks)*100).toInt()}%",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: AppColors.aWhiteColor
+                  color: AppColors.aWhiteColor,
+                  fontSize: 18
                 ),
               )
             ),
