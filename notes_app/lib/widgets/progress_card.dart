@@ -31,41 +31,49 @@ class _ProgressCardState extends State<ProgressCard> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
               const Text(
                 "Today's Progress", 
                 style: AppTextStyles.appSubtitle
               ),
-              Text(
-                " You have completed ${widget.completedTasks} out of ${widget.totalTasks}",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.aWhiteColor,
-                  
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.6,
+                child: Text(
+                  " You have completed ${widget.completedTasks} out of ${widget.totalTasks} \n Keep going!!",
+                  style: AppTextStyles.appDescriptionSmall.copyWith(
+                    color: AppColors.aWhiteColor.withOpacity(0.5)
+                  ),
                 ),
               ),
             ],
           ),
-          Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color: AppColors.aFabColor,
-            ),
-            child: Center(
-              child: Text(
-                "${((widget.completedTasks/widget.totalTasks)*100).toInt()}%",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.aWhiteColor,
-                  fontSize: 18
+
+          Stack(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width*0.2,
+                height: MediaQuery.of(context).size.width*0.2,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  gradient: AppColors().aPrimaryGradient,
                 ),
-              )
-            ),
+                child: Center(
+                  child: Text(
+                    "${((widget.completedTasks/widget.totalTasks)*100).toInt()}%",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.aWhiteColor,
+                      fontSize: 18
+                    ),
+                  )
+                ),
+              ),
+            ],
           ),
+
+
         ],
       ),
     );
