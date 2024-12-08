@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/pages/notes_page.dart';
+import 'package:notes_app/pages/todo_page.dart';
+import 'package:notes_app/utils/router.dart';
 import 'package:notes_app/utils/text_styles.dart';
 import 'package:notes_app/widgets/notes_todo.dart';
 import 'package:notes_app/widgets/progress_card.dart';
@@ -21,10 +24,9 @@ class _HomePageState extends State<HomePage> {
           style: AppTextStyles.appTitle,
         ),
       ),
-      body: const Padding(
+      body: Padding(
         padding: EdgeInsets.all(8.0),
         child: Column(
-          
           children: [
             ProgressCard(completedTasks: 5, totalTasks: 6),
             SizedBox(
@@ -33,8 +35,26 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                NotesTodo(title: 'To Do', description: "2", iconName: Icons.bookmark_add,),
-                NotesTodo(title: 'To Do', description: "2", iconName: Icons.calendar_month_sharp,),
+                GestureDetector(
+                  onTap: () {
+                    AppRouter.router.push("/notes");
+                  },
+                  child: const NotesTodo(
+                    title: 'To Do',
+                    description: "2",
+                    iconName: Icons.bookmark_add,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    AppRouter.router.push("/todos");
+                  },
+                  child: const NotesTodo(
+                    title: 'To Do',
+                    description: "2",
+                    iconName: Icons.calendar_month_sharp,
+                  ),
+                ),
               ],
             ),
             SizedBox(
@@ -56,11 +76,12 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 10,
             ),
-            TodayProgress(
-              title: "walking street", 
-              date: "10/11/22", 
-              time: "09.12.11"
-            ),
+            // MainScreenToDoCard(
+            //   toDoTitle: "Walking street",
+            //   date: "",
+            //   time: "09.12.11",
+            //   isDone: true,
+            // ),
           ],
         ),
       ),
