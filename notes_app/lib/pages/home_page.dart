@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/utils/text_styles.dart';
+import 'package:notes_app/widgets/notes_todo.dart';
 import 'package:notes_app/widgets/progress_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,10 +21,21 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: const Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0),
         child: Column(
+          
           children: [
-            ProgressCard(completedTasks: 5, totalTasks: 6)
+            ProgressCard(completedTasks: 5, totalTasks: 6),
+            SizedBox(
+              height: 15,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                NotesTodo(title: 'To Do', description: "2", iconName: Icons.bookmark_add,),
+                NotesTodo(title: 'To Do', description: "2", iconName: Icons.calendar_month_sharp,),
+              ],
+            ),
           ],
         ),
       ),
