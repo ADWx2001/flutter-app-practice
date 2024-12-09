@@ -82,4 +82,31 @@ class NoteServies {
     return notes;
   }
 
+  // Method to update / edit a note
+  Future<void> updateNote(Note note) async {
+    try {
+      //get all notes from the box
+      final dynamic allNotes = await _myBox.get("notes");
+      final int index = allNotes.indexWhere((element) => element.id == note.id);
+      allNotes[index] = note;
+      await _myBox.put("notes", allNotes);
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
+  }
+
+  // Method to delete a note
+  Future<void> deleteNote(String noteId) async {
+    try {
+      //get all notes from the box
+      final dynamic allNotes = await _myBox.get("notes");
+      allNotes.removeWhere((element) => element.id == noteId);
+      await _myBox.put("notes", allNotes);
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
+  }
+
 }

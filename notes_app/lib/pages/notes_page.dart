@@ -49,6 +49,16 @@ class _NotesPageState extends State<NotesPage> {
     });
   }
 
+  //show bottom sheet
+  void openBottomSheet(){
+    showModalBottomSheet(
+      context: context, 
+      builder: (context){
+        return CategoryInputBottomSheet();
+      }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
