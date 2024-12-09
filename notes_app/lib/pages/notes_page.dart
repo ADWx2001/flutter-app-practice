@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/services/note_servies.dart';
 import 'package:notes_app/utils/colors.dart';
+import 'package:notes_app/utils/constants.dart';
 import 'package:notes_app/utils/router.dart';
+import 'package:notes_app/utils/text_styles.dart';
+import 'package:notes_app/widgets/notes_card.dart';
 
 class NotesPage extends StatefulWidget {
   const NotesPage({super.key});
@@ -53,30 +56,86 @@ class _NotesPageState extends State<NotesPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: IconButton(
-          onPressed: () { 
-            AppRouter.router.push("/");
-           },
-          icon: const Icon(Icons.arrow_back), 
-          color: AppColors.aWhiteColor, 
-          
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            AppRouter.router.go(
+              "/",
+            );
+          },
         ),
       ),
+
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: (){},
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(100),
-        ),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(100),
+            ),
+            side: BorderSide(
+              color: AppColors.aWhiteColor,
+              width: 2,
+            )),
+        backgroundColor: AppColors.aFabColor,
         child: Icon(
           Icons.add,
           color: AppColors.aWhiteColor,
           size: 30,
         ),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(10),
+      body: Padding(
+        padding: const EdgeInsets.all(
+          AppConstants.aDefaultPadding,
+        ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Notes")
+            const Text(
+              'Notes',
+              style: AppTextStyles.appTitle,
+            ),
+            const SizedBox(height: 30),
+            allNotes.isEmpty
+                ? SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.5,
+                    child: Center(
+                      child: Text(
+                        "No notes available , click on the + button to add a new note",
+                        style: TextStyle(
+                          color: AppColors.aWhiteColor.withOpacity(0.7),
+                          fontSize: 20,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  )
+                : GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: AppConstants.aDefaultPadding,
+                      mainAxisSpacing: AppConstants.aDefaultPadding,
+                      childAspectRatio: 6 / 4,
+                    ),
+                    itemCount: notesByCategory.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          //go to notes by category
+                          AppRouter.router.push(
+                            "/category",
+                            extra: notesByCategory.keys.elementAt(index),
+                          );
+                        },
+                        child: NotesCard(
+                          noteCategory: notesByCategory.keys.elementAt(index),
+                          noOfNotes:
+                              notesByCategory.values.elementAt(index).length,
+                        ),
+                      );
+                    },
+                  ),
           ],
         ),
       ),
