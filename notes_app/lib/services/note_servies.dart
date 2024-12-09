@@ -1,6 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:notes_app/models/note_model.dart';
-import 'package:notes_app/pages/notes_page.dart';
 import 'package:uuid/uuid.dart';
 
 class NoteServies {

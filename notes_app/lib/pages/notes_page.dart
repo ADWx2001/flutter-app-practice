@@ -22,9 +22,8 @@ class _NotesPageState extends State<NotesPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _checkIfUserIsNew;
+    _checkIfUserIsNew(); // Add parentheses to ensure this method is invoked
   }
 
   void _checkIfUserIsNew() async{
@@ -108,6 +107,7 @@ class _NotesPageState extends State<NotesPage> {
                       ),
                     ),
                   )
+
                 : GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
