@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/helpers/show_snack_bar.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/services/note_servies.dart';
 import 'package:notes_app/utils/constants.dart';
 import 'package:notes_app/utils/router.dart';
 import 'package:notes_app/utils/text_styles.dart';
+import 'package:notes_app/widgets/note_category_card.dart';
 
 class NotesByCategory extends StatefulWidget {
   final String category;
@@ -34,6 +36,27 @@ class _NotesByCategoryState extends State<NotesByCategory> {
       print(noteListByCategory.length);
     });
   }
+
+  //remove note
+  Future<void> _removeNote(String id) async {
+    try {
+      await noteservice.deleteNote(id);
+      if (context.mounted) {
+        // ignore: use_build_context_synchronously
+        AppHelpers.showSnackBar(context, "Note deleted successfully");
+      }
+    } catch (e) {
+      // ignore: use_build_context_synchronously
+      AppHelpers.showSnackBar(context, "Failed to delete note");
+    }
+  }
+
+  //edit note
+  void _editNote(Note note) {
+    //navigate to the edit note page
+    AppRouter.router.push('/edit-note', extra: note);
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,38 +89,38 @@ class _NotesByCategoryState extends State<NotesByCategory> {
               const SizedBox(
                 height: 30,
               ),
-              // GridView.builder(
-              //   shrinkWrap: true,
-              //   physics: const NeverScrollableScrollPhysics(),
-              //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              //     crossAxisCount: 2,
-              //     crossAxisSpacing: AppConstants.aDefaultPadding,
-              //     mainAxisSpacing: AppConstants.aDefaultPadding,
-              //     childAspectRatio: 7 / 11,
-              //   ),
-              //   itemCount: noteList.length,
-              //   itemBuilder: (context, index) {
-              //     return NoteCategoryCard(
-              //       noteTitle: noteList[index].title,
-              //       noteContent: noteList[index].content,
-              //       removeNote: () async {
-              //         await _removeNote(noteList[index].id);
-              //         setState(() {
-              //           noteList.removeAt(index);
-              //         });
-              //       },
-              //       editNote: () async {
-              //         _editNote(noteList[index]);
-              //       },
-              //       viewSingleNote: () {
-              //         AppRouter.router.push(
-              //           "/single-note",
-              //           extra: noteList[index],
-              //         );
-              //       },
-              //     );
-              //   },
-              // ),
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: AppConstants.aDefaultPadding,
+                  mainAxisSpacing: AppConstants.aDefaultPadding,
+                  childAspectRatio: 7 / 11,
+                ),
+                itemCount: noteListByCategory.length,
+                itemBuilder: (context, index) {
+                  return NoteCategoryCard(
+                    noteTitle: noteListByCategory[index].title,
+                    noteContent: noteListByCategory[index].content,
+                    removeNote: () async {
+                      await _removeNote(noteListByCategory[index].id);
+                      setState(() {
+                        noteListByCategory.removeAt(index);
+                      });
+                    },
+                    editNote: () async {
+                      _editNote(noteListByCategory[index]);
+                    },
+                    viewSingleNote: () {
+                      AppRouter.router.push(
+                        "/single-note",
+                        extra: noteListByCategory[index],
+                      );
+                    },
+                  );
+                },
+              ),
 
             ],
           ),

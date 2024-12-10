@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/pages/notes_page.dart';
-import 'package:notes_app/pages/todo_page.dart';
 import 'package:notes_app/utils/router.dart';
 import 'package:notes_app/utils/text_styles.dart';
 import 'package:notes_app/widgets/notes_todo.dart';
 import 'package:notes_app/widgets/progress_card.dart';
-import 'package:notes_app/widgets/today_progress.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,11 +22,11 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            ProgressCard(completedTasks: 5, totalTasks: 6),
-            SizedBox(
+            const ProgressCard(completedTasks: 5, totalTasks: 6),
+            const SizedBox(
               height: 15,
             ),
             Row(
@@ -57,10 +54,10 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -73,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             // MainScreenToDoCard(
