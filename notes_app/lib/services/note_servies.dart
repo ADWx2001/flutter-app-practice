@@ -109,4 +109,29 @@ class NoteServies {
     }
   }
 
+  //method to get all categories
+  Future<List<String>> getAllCategories() async{
+    final List<String> categories = [];
+
+    final dynamic allNotes = await _myBox.get("notes");
+
+    for(final note in allNotes){
+      if(!categories.contains(note.category)){
+        categories.add(note.category);
+      }
+    }
+    return categories;
+  }
+
+  //method to create note
+  Future<void> addNote(Note note) async {
+    try {
+      final dynamic allNotes = await _myBox.get("notes");
+      allNotes.add(note);
+      await _myBox.put("notes", allNotes);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
 }

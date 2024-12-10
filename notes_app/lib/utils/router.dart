@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notes_app/pages/create_new_note.dart';
 import 'package:notes_app/pages/home_page.dart';
 import 'package:notes_app/pages/notes_by_category.dart';
 import 'package:notes_app/pages/notes_page.dart';
@@ -49,6 +50,15 @@ class AppRouter{
         },
       ),
 
+      //create new note
+      GoRoute(
+        name: "create_new_note",
+        path: '/create-note',
+        builder: (context, state) {
+          final bool isNewNote = state.extra as bool;
+          return CreateNewNote(isNewCategory: isNewNote,);
+        },
+      ),
 
     ],
   );
