@@ -6,6 +6,7 @@ import 'package:notes_app/pages/edit_note.dart';
 import 'package:notes_app/pages/home_page.dart';
 import 'package:notes_app/pages/notes_by_category.dart';
 import 'package:notes_app/pages/notes_page.dart';
+import 'package:notes_app/pages/single_note.dart';
 import 'package:notes_app/pages/todo_page.dart';
 
 class AppRouter{
@@ -74,6 +75,16 @@ class AppRouter{
         // builder: (context, state){
         //   return EditNote();
         // }
+      ),
+
+      //go to single note page
+      GoRoute(
+        name: "single_note",
+        path: '/single-note',
+        builder: (context, state) {
+          final Note note = state.extra as Note;
+          return SingleNotePage(note: note,);
+        } 
       ),
 
     ],

@@ -90,6 +90,7 @@ class _NotesByCategoryState extends State<NotesByCategory> {
                 height: 30,
               ),
               GridView.builder(
+                
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -100,24 +101,27 @@ class _NotesByCategoryState extends State<NotesByCategory> {
                 ),
                 itemCount: noteListByCategory.length,
                 itemBuilder: (context, index) {
-                  return NoteCategoryCard(
-                    noteTitle: noteListByCategory[index].title,
-                    noteContent: noteListByCategory[index].content,
-                    removeNote: () async {
-                      await _removeNote(noteListByCategory[index].id);
-                      setState(() {
-                        noteListByCategory.removeAt(index);
-                      });
-                    },
-                    editNote: () async {
-                      _editNote(noteListByCategory[index]);
-                    },
-                    viewSingleNote: () {
-                      AppRouter.router.push(
-                        "/single-note",
-                        extra: noteListByCategory[index],
-                      );
-                    },
+                  return InkWell(
+                    
+                    child: NoteCategoryCard(
+                      noteTitle: noteListByCategory[index].title,
+                      noteContent: noteListByCategory[index].content,
+                      removeNote: () async {
+                        await _removeNote(noteListByCategory[index].id);
+                        setState(() {
+                          noteListByCategory.removeAt(index);
+                        });
+                      },
+                      editNote: () async {
+                        _editNote(noteListByCategory[index]);
+                      },
+                      viewSingleNote: () {
+                        AppRouter.router.push(
+                          "/single-note",
+                          extra: noteListByCategory[index],
+                        );
+                      },
+                    ),
                   );
                 },
               ),

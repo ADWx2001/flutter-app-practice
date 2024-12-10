@@ -59,7 +59,7 @@ class _EditNoteState extends State<EditNote> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Note'),
+        title: const Text('Update Note'),
       ),
       body: SingleChildScrollView(
         child: Column(
