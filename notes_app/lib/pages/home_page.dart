@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/models/note_model.dart';
+import 'package:notes_app/models/todo_model.dart';
+import 'package:notes_app/services/note_servies.dart';
+import 'package:notes_app/services/todo_service.dart';
 import 'package:notes_app/utils/router.dart';
 import 'package:notes_app/utils/text_styles.dart';
 import 'package:notes_app/widgets/notes_todo.dart';
 import 'package:notes_app/widgets/progress_card.dart';
+import 'package:notes_app/widgets/today_progress.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,6 +17,45 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Note> allnotes = [];
+  List<ToDo> allToDos = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _checkIfUserIsNew();
+    setState(() {
+      
+    });
+  }
+
+  void _checkIfUserIsNew() async{
+    final bool isNewUser = 
+    await NoteServies().isFirstTime() || await TodoService().isNewUser();
+
+    if(isNewUser){
+      await NoteServies().createInitialNotes();
+      await TodoService().createInitialTodos();
+    }
+    _loadNotes();
+    _loadToDos();
+  }
+
+  Future<void> _loadNotes() async{
+    final List<Note> loadedNotes = await NoteServies().loadNotes();
+    setState(() {
+      allnotes = loadedNotes;
+    });
+  }
+
+  Future<void> _loadToDos() async{
+    final List<ToDo> loadedToDos = await TodoService().loadTodos();
+    setState(() {
+      allToDos = loadedToDos;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +69,7 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            const ProgressCard(completedTasks: 5, totalTasks: 6),
+            const ProgressCard(completedTasks: allToDos.where((todo)=>todo.isDone).length, totalTasks: allToDos.length,),
             const SizedBox(
               height: 15,
             ),
@@ -73,12 +117,12 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 10,
             ),
-            // MainScreenToDoCard(
-            //   toDoTitle: "Walking street",
-            //   date: "",
-            //   time: "09.12.11",
-            //   isDone: true,
-            // ),
+            const MainScreenToDoCard(
+              toDoTitle: "Walking street",
+              date: "",
+              time: "09.12.11",
+              isDone: true,
+            ),
           ],
         ),
       ),
