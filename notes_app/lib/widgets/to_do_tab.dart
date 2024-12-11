@@ -57,12 +57,24 @@ class _ToDoTabState extends State<ToDoTab> {
             child: ListView.builder(
               itemBuilder: (context, index) {
                 final ToDo todo = widget.incompletedToDos[index];
-                return TodoCard(
-                  toDo: todo,
-                  isComplete: false,
-                  onCheckBoxChanged: () {
-                    _markToDoasDone(todo);
+                return Dismissible(
+                  key: Key(todo.id.toString()),
+                  onDismissed: (direction){
+
+                    setState(() {
+                      widget.incompletedToDos.removeAt(index);
+                      TodoService().deleteToDo(todo);
+                      
+                    });
+                    AppHelpers.showSnackBar(context, "To Do is deleted successfully!!");
                   },
+                  child: TodoCard(
+                    toDo: todo,
+                    isComplete: false,
+                    onCheckBoxChanged: () {
+                      _markToDoasDone(todo);
+                    },
+                  ),
                 );
               },
               itemCount: widget.incompletedToDos.length,

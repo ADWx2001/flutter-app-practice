@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:notes_app/helpers/show_snack_bar.dart';
 import 'package:notes_app/models/todo_model.dart';
 
 class TodoService {
@@ -81,6 +83,20 @@ class TodoService {
       allToDos.add(todo);
 
       await _myBox.put("todos", allToDos);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  //methos to delete todo
+  Future <void> deleteToDo(ToDo todo) async{
+    try {
+      final dynamic allToDos = await _myBox.get("todos");
+      //final int index = allToDos.indexWhere((element)=> element.id == todo.id);
+      allToDos.remove(todo);
+
+      await _myBox.add(allToDos);
+
     } catch (e) {
       print(e.toString());
     }

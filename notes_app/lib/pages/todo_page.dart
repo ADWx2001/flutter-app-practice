@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/helpers/show_snack_bar.dart';
 import 'package:notes_app/models/todo_model.dart';
 import 'package:notes_app/services/todo_service.dart';
 import 'package:notes_app/utils/colors.dart';
@@ -68,6 +69,36 @@ class _TodoPageState extends State<TodoPage>
     }
   }
 
+  //method to add tasks
+  void _addTask() async {
+
+    try {
+
+      if (_taskController.text.isNotEmpty) {
+      final ToDo newtodo = ToDo(
+        title: _taskController.text,
+        time: DateTime.now(),
+        isDone: false,
+        date: DateTime.now(),
+      );
+
+      await toDoService.addToDo(newtodo);
+      setState(() {
+        allToDos.add(newtodo);
+        incompletedToDos.add(newtodo);
+      });
+      AppHelpers.showSnackBar(context, "To Do Added successfully!!");
+      Navigator.pop(context);
+    }
+      
+    } catch (e) {
+      print(e.toString());
+      AppHelpers.showSnackBar(context, "Failed to added to do");
+      Navigator.pop(context);
+    }
+    
+  }
+
   void openMessageModel(BuildContext context) {
     showDialog(
         context: context,
@@ -97,7 +128,9 @@ class _TodoPageState extends State<TodoPage>
             ),
             actions: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  _addTask();
+                },
                 style: ButtonStyle(
                   backgroundColor: const WidgetStatePropertyAll(
                     AppColors.aFabColor,
@@ -114,7 +147,19 @@ class _TodoPageState extends State<TodoPage>
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                style: ButtonStyle(
+                  backgroundColor: const WidgetStatePropertyAll(
+                    AppColors.aFabColor,
+                  ),
+                  shape: WidgetStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
+                ),
                 child: const Text(
                   "Cancel",
                   style: AppTextStyles.appButton,
