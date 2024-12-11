@@ -19,7 +19,7 @@ class TodoService {
     ToDo(
       title: "Complete Assignment",
       date: DateTime.now(),
-      time: DateTime.now(),
+      time: DateTime.now(), 
       isDone: false,
     ),
   ];
@@ -40,7 +40,7 @@ class TodoService {
   }
 
   // Method to load the todos
-  Future<List<ToDo>> loadTodos() async {
+  Future <List<ToDo>> loadTodos() async {
     final dynamic todos = await _myBox.get("todos");
     if (todos != null && todos is List<dynamic>) {
       return todos.cast<ToDo>().toList();

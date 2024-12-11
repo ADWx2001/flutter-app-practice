@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/models/todo_model.dart';
+import 'package:notes_app/services/todo_service.dart';
 import 'package:notes_app/utils/colors.dart';
 import 'package:notes_app/utils/text_styles.dart';
 import 'package:notes_app/widgets/completed_tab.dart';
@@ -14,12 +16,33 @@ class TodoPage extends StatefulWidget {
 class _TodoPageState extends State<TodoPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  final TodoService toDoService = TodoService();
+  late List<ToDo> allToDos = [];
+  late List<ToDo> completedToDos = [];
+  late List<ToDo> incompletedToDos = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _checkIfUserIsNew();
     _tabController = TabController(length: 2, vsync: this);
+  }
+
+  void _checkIfUserIsNew() async {
+    final bool isnewUser = await toDoService.isNewUser();
+    if (isnewUser) {
+      _loadToDos();
+    }
+  }
+
+  Future<void> _loadToDos() async {
+    final List<ToDo> _loadedToDOs = toDoService.loadTodos() as List<ToDo>;
+    setState(() {
+      allToDos = _loadedToDOs;
+      incompletedToDos = allToDos.where((todo) => !todo.isDone).toList();
+      completedToDos = allToDos.where((todo) => !todo.isDone).toList();
+    });
   }
 
   @override
@@ -62,7 +85,14 @@ class _TodoPageState extends State<TodoPage>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [ToDoTab(), CompletedTab()],
+        children: [
+          ToDoTab(
+            incompletedToDos: incompletedToDos,
+          ), 
+          CompletedTab(
+            completedToDOs: completedToDos,
+          )
+        ],
       ),
     );
   }
