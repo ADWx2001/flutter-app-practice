@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:notes_app/models/note_model.dart';
-import 'package:notes_app/models/todo_model.dart';
 import 'package:notes_app/pages/create_new_note.dart';
 import 'package:notes_app/pages/edit_note.dart';
 import 'package:notes_app/pages/home_page.dart';
@@ -9,7 +8,7 @@ import 'package:notes_app/pages/notes_by_category.dart';
 import 'package:notes_app/pages/notes_page.dart';
 import 'package:notes_app/pages/single_note.dart';
 import 'package:notes_app/pages/todo_page.dart';
-import 'package:notes_app/widgets/completed_tab.dart';
+
 
 class AppRouter{
 
@@ -73,10 +72,6 @@ class AppRouter{
           final Note note = state.extra as Note;
           return EditNote(note: note,);
         } 
-        // // },
-        // builder: (context, state){
-        //   return EditNote();
-        // }
       ),
 
       //go to single note page

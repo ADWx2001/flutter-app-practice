@@ -30,20 +30,34 @@ class _TodoPageState extends State<TodoPage>
   }
 
   void _checkIfUserIsNew() async {
-    final bool isnewUser = await toDoService.isNewUser();
-    if (isnewUser) {
-      _loadToDos();
+  try {
+    final bool isNewUser = await toDoService.isNewUser();
+    print('Is new user: $isNewUser');
+    if (isNewUser) {
+      print('Creating initial todos');
+      await toDoService.createInitialTodos();
     }
+    print('Loading todos');
+    _loadToDos();
+  } catch (e) {
+    print('Error in _checkIfUserIsNew: $e');
   }
+}
 
-  Future<void> _loadToDos() async {
-    final List<ToDo> _loadedToDOs = toDoService.loadTodos() as List<ToDo>;
+// Method to load the todos into the state
+Future<void> _loadToDos() async {
+  try {
+    final List<ToDo> _loadedToDOs = await toDoService.loadTodos(); // Await the result
+    if (!mounted) return; // Ensure the widget is still in the widget tree
     setState(() {
       allToDos = _loadedToDOs;
       incompletedToDos = allToDos.where((todo) => !todo.isDone).toList();
-      completedToDos = allToDos.where((todo) => !todo.isDone).toList();
+      completedToDos = allToDos.where((todo) => todo.isDone).toList(); // Fix condition
     });
+  } catch (e) {
+    print('Error loading todos: $e'); // Debugging log
   }
+}
 
   @override
   Widget build(BuildContext context) {
