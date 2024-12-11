@@ -9,7 +9,9 @@ import 'package:notes_app/widgets/to_do_card.dart';
 
 class ToDoTab extends StatefulWidget {
   final List<ToDo> incompletedToDos;
-  const ToDoTab({super.key, required this.incompletedToDos});
+  final List<ToDo> completeToDo;
+  const ToDoTab(
+      {super.key, required this.incompletedToDos, required this.completeToDo});
 
   @override
   State<ToDoTab> createState() => _ToDoTabState();
@@ -30,10 +32,10 @@ class _ToDoTabState extends State<ToDoTab> {
       AppHelpers.showSnackBar(context, "marked as completed");
       setState(() {
         widget.incompletedToDos.remove(todo);
+        widget.completeToDo.add(todo);
       });
 
       AppRouter.router.go("/todos");
-
     } catch (e) {
       print(e.toString());
     }
@@ -41,6 +43,9 @@ class _ToDoTabState extends State<ToDoTab> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      widget.incompletedToDos.sort((a, b) => a.time.compareTo(b.time));
+    });
     return Padding(
       padding: EdgeInsets.all(10),
       child: Column(
@@ -55,7 +60,9 @@ class _ToDoTabState extends State<ToDoTab> {
                 return TodoCard(
                   toDo: todo,
                   isComplete: false,
-                  onCheckBoxChanged: () {_markToDoasDone(todo);},
+                  onCheckBoxChanged: () {
+                    _markToDoasDone(todo);
+                  },
                 );
               },
               itemCount: widget.incompletedToDos.length,

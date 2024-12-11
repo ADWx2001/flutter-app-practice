@@ -20,44 +20,110 @@ class _TodoPageState extends State<TodoPage>
   late List<ToDo> allToDos = [];
   late List<ToDo> completedToDos = [];
   late List<ToDo> incompletedToDos = [];
+  TextEditingController _taskController = TextEditingController();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _checkIfUserIsNew();
     _tabController = TabController(length: 2, vsync: this);
   }
 
-  void _checkIfUserIsNew() async {
-  try {
-    final bool isNewUser = await toDoService.isNewUser();
-    print('Is new user: $isNewUser');
-    if (isNewUser) {
-      print('Creating initial todos');
-      await toDoService.createInitialTodos();
-    }
-    print('Loading todos');
-    _loadToDos();
-  } catch (e) {
-    print('Error in _checkIfUserIsNew: $e');
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _taskController.dispose();
+    super.dispose();
   }
-}
+
+  void _checkIfUserIsNew() async {
+    try {
+      final bool isNewUser = await toDoService.isNewUser();
+      print('Is new user: $isNewUser');
+      if (isNewUser) {
+        print('Creating initial todos');
+        await toDoService.createInitialTodos();
+      }
+      print('Loading todos');
+      _loadToDos();
+    } catch (e) {
+      print('Error in _checkIfUserIsNew: $e');
+    }
+  }
 
 // Method to load the todos into the state
-Future<void> _loadToDos() async {
-  try {
-    final List<ToDo> _loadedToDOs = await toDoService.loadTodos(); // Await the result
-    if (!mounted) return; // Ensure the widget is still in the widget tree
-    setState(() {
-      allToDos = _loadedToDOs;
-      incompletedToDos = allToDos.where((todo) => !todo.isDone).toList();
-      completedToDos = allToDos.where((todo) => todo.isDone).toList(); // Fix condition
-    });
-  } catch (e) {
-    print('Error loading todos: $e'); // Debugging log
+  Future<void> _loadToDos() async {
+    try {
+      final List<ToDo> _loadedToDOs =
+          await toDoService.loadTodos(); // Await the result
+      if (!mounted) return; // Ensure the widget is still in the widget tree
+      setState(() {
+        allToDos = _loadedToDOs;
+        incompletedToDos = allToDos.where((todo) => !todo.isDone).toList();
+        completedToDos =
+            allToDos.where((todo) => todo.isDone).toList(); // Fix condition
+      });
+    } catch (e) {
+      print('Error loading todos: $e'); // Debugging log
+    }
   }
-}
+
+  void openMessageModel(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: AppColors.aCardColor,
+            title: Text(
+              "Add Task",
+              style: AppTextStyles.appDescription.copyWith(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            content: TextField(
+              controller: _taskController,
+              style: TextStyle(
+                color: AppColors.aWhiteColor,
+                fontSize: 20,
+              ),
+              decoration: InputDecoration(
+                hintText: "Enter Your Task",
+                hintStyle: AppTextStyles.appDescriptionSmall,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+            ),
+            actions: [
+              ElevatedButton(
+                onPressed: () {},
+                style: ButtonStyle(
+                  backgroundColor: const WidgetStatePropertyAll(
+                    AppColors.aFabColor,
+                  ),
+                  shape: WidgetStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
+                ),
+                child: const Text(
+                  "Add Task",
+                  style: AppTextStyles.appButton,
+                ),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: const Text(
+                  "Cancel",
+                  style: AppTextStyles.appButton,
+                ),
+              ),
+            ],
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +148,9 @@ Future<void> _loadToDos() async {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          openMessageModel(context);
+        },
         shape: RoundedRectangleBorder(
           borderRadius: const BorderRadius.all(
             Radius.circular(10),
@@ -102,9 +170,11 @@ Future<void> _loadToDos() async {
         children: [
           ToDoTab(
             incompletedToDos: incompletedToDos,
-          ), 
+            completeToDo: completedToDos,
+          ),
           CompletedTab(
             completedToDOs: completedToDos,
+            incompletedToDos: incompletedToDos,
           )
         ],
       ),
