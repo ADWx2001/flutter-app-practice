@@ -3,6 +3,7 @@ import 'package:notes_app/helpers/show_snack_bar.dart';
 import 'package:notes_app/models/todo_model.dart';
 import 'package:notes_app/services/todo_service.dart';
 import 'package:notes_app/utils/colors.dart';
+import 'package:notes_app/utils/router.dart';
 import 'package:notes_app/utils/text_styles.dart';
 import 'package:notes_app/widgets/completed_tab.dart';
 import 'package:notes_app/widgets/to_do_tab.dart';
@@ -71,32 +72,28 @@ class _TodoPageState extends State<TodoPage>
 
   //method to add tasks
   void _addTask() async {
-
     try {
-
       if (_taskController.text.isNotEmpty) {
-      final ToDo newtodo = ToDo(
-        title: _taskController.text,
-        time: DateTime.now(),
-        isDone: false,
-        date: DateTime.now(),
-      );
+        final ToDo newtodo = ToDo(
+          title: _taskController.text,
+          time: DateTime.now(),
+          isDone: false,
+          date: DateTime.now(),
+        );
 
-      await toDoService.addToDo(newtodo);
-      setState(() {
-        allToDos.add(newtodo);
-        incompletedToDos.add(newtodo);
-      });
-      AppHelpers.showSnackBar(context, "To Do Added successfully!!");
-      Navigator.pop(context);
-    }
-      
+        await toDoService.addToDo(newtodo);
+        setState(() {
+          allToDos.add(newtodo);
+          incompletedToDos.add(newtodo);
+        });
+        AppHelpers.showSnackBar(context, "To Do Added successfully!!");
+        Navigator.pop(context);
+      }
     } catch (e) {
       print(e.toString());
       AppHelpers.showSnackBar(context, "Failed to added to do");
       Navigator.pop(context);
     }
-    
   }
 
   void openMessageModel(BuildContext context) {
@@ -174,6 +171,14 @@ class _TodoPageState extends State<TodoPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            AppRouter.router.go("/"); // Navigate to the home page
+          },
+        ),
+        automaticallyImplyLeading: false,
+        title: Text("ToDo Page"),
         bottom: TabBar(
           tabs: const [
             Tab(

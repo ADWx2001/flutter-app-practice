@@ -1,21 +1,18 @@
-import 'package:brainbox/utils/colors.dart';
-import 'package:brainbox/utils/text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:notes_app/utils/colors.dart';
 import 'package:notes_app/utils/text_styles.dart';
 
 class MainScreenToDoCard extends StatelessWidget {
   final String toDoTitle;
-  final String date;
-  final String time;
+  final String formattedDate; // Expect formatted date
+  final String formattedTime; // Expect formatted time
   final bool isDone;
 
   const MainScreenToDoCard({
     Key? key,
     required this.toDoTitle,
-    required this.date,
-    required this.time,
+    required this.formattedDate,
+    required this.formattedTime,
     required this.isDone,
   }) : super(key: key);
 
@@ -42,7 +39,7 @@ class MainScreenToDoCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  '${DateFormat.yMMMd().format(DateTime.parse(date))} ${DateFormat.Hm().format(DateTime.parse(time))}',
+                  '$formattedDate $formattedTime',
                   style: AppTextStyles.appDescriptionSmall.copyWith(
                     color: AppColors.aBgColor.withOpacity(0.3),
                   ),
