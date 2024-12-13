@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "565394112882",
+    "project_id": "flutter-socially-bb50c",
+    "storage_bucket": "flutter-socially-bb50c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565394112882:android:8148aa7919207bfb295deb",
+        "android_client_info": {
+          "package_name": "com.example.socially_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjwWW92D_ftqiVm7WYZ2e5Fbyrpl1FgYM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
