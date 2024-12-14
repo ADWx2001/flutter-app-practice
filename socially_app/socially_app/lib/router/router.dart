@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:socially_app/views/auth_views/login.dart';
 import 'package:socially_app/views/auth_views/register.dart';
 import 'package:socially_app/views/res/mobile_layout.dart';
 import 'package:socially_app/views/res/responsive_layout.dart';
@@ -38,13 +39,13 @@ class RouterClass {
       ),
 
       // login Page
-      // GoRoute(
-      //   name: "login",
-      //   path: "/login",
-      //   builder: (context, state) {
-      //     return LoginScreen();
-      //   },
-      // ),
+      GoRoute(
+        name: "login",
+        path: "/login",
+        builder: (context, state) {
+          return LoginScreen();
+        },
+      ),
 
       //register Page
       GoRoute(
