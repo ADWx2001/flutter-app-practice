@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:socially_app/views/auth_views/register.dart';
 import 'package:socially_app/views/res/mobile_layout.dart';
 import 'package:socially_app/views/res/responsive_layout.dart';
 import 'package:socially_app/views/res/web_layout.dart';
@@ -12,7 +13,7 @@ import 'package:socially_app/views/res/web_layout.dart';
 
 class RouterClass {
   final router = GoRouter(
-    initialLocation: "/",
+    initialLocation: "/register",
     errorPageBuilder: (context, state) {
       return const MaterialPage<dynamic>(
         child: Scaffold(
@@ -46,13 +47,13 @@ class RouterClass {
       // ),
 
       //register Page
-      // GoRoute(
-      //   name: "register",
-      //   path: "/register",
-      //   builder: (context, state) {
-      //     return RegisterScreen();
-      //   },
-      // ),
+      GoRoute(
+        name: "register",
+        path: "/register",
+        builder: (context, state) {
+          return RegisterScreen();
+        },
+      ),
 
       // MainScreen
       // GoRoute(
