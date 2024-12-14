@@ -8,7 +8,9 @@ class MobileScreenLayout extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mobile Screen Layout'),
+        
       ),
+   
     );
   }
 }
