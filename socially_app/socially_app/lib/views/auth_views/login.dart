@@ -12,29 +12,29 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
 
   // Sign in with Google
-  // Future<void> _signInWithGoogle(BuildContext context) async {
-  //   try {
-  //     // Sign in with Google
-  //     await AuthService().signInWithGoogle();
+  Future<void> _signInWithGoogle(BuildContext context) async {
+    try {
+      // Sign in with Google
+      await AuthService().signInWithGoogle();
 
-  //     GoRouter.of(context).go('/main-screen');
-  //   } catch (e) {
-  //     print('Error signing in with Google: $e');
-  //     showDialog(
-  //       context: context,
-  //       builder: (context) => AlertDialog(
-  //         title: const Text('Error'),
-  //         content: Text('Error signing in with Google: $e'),
-  //         actions: [
-  //           TextButton(
-  //             onPressed: () => Navigator.of(context).pop(),
-  //             child: const Text('OK'),
-  //           ),
-  //         ],
-  //       ),
-  //     );
-  //   }
-  // }
+      GoRouter.of(context).go('/main-screen');
+    } catch (e) {
+      print('Error signing in with Google: $e');
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: Text('Error signing in with Google: $e'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
 
 
   // Sign in with email and password
@@ -137,11 +137,11 @@ class LoginScreen extends StatelessWidget {
 
                     const SizedBox(height: 10),
                     // Google Sign-In Button
-                    // ReusableButton(
-                    //   text: 'Sign in with Google',
-                    //   width: MediaQuery.of(context).size.width,
-                    //   onPressed: () => _signInWithGoogle(context),
-                    // ),
+                    ReusableButton(
+                      text: 'Sign in with Google',
+                      width: MediaQuery.of(context).size.width,
+                      onPressed: () => _signInWithGoogle(context),
+                    ),
                     const SizedBox(height: 16),
                     TextButton(
                       onPressed: () {
