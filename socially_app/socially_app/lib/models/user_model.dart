@@ -24,32 +24,34 @@ class UserModel {
   });
 
   //convert user instance to map(for save in to firestore)
-  Map<String, dynamic> toJson() {
+  // Convert a User instance to a map (for saving to Firestore)
+  Map<String, dynamic> toMap() {
     return {
-      "userId": userId,
-      "name": name,
-      "email": email,
-      "jobTitle": jobTitle,
-      "imageUrl": imageUrl,
-      "createdAt": createdAt,
-      "updatedAt": updatedAt,
-      "password": password,
-      "followers": followers
-    };  
+      'userId': userId,
+      'name': name,
+      'email': email,
+      'jobTitle': jobTitle,
+      'imageUrl': imageUrl,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+      'password': password,
+      'followers': followers,
+    };
   }
 
   //create user object json to dartObj
-  factory UserModel.fromJson(Map<String, dynamic> data){
+  // Create a User instance from a map (for retrieving from Firestore)
+  factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      userId: data["userId"]?? "", 
-      name: data["name"]?? "", 
-      email: data["email"]?? "", 
-      jobTitle: data["jobTitle"]?? "", 
-      imageUrl: data["imageUrl"]?? "", 
-      createdAt: (data["createdAt"] as Timestamp).toDate(), 
-      updatedAt:( data["updatedAt"] as Timestamp).toDate(), 
-      password: data["password"]?? "", 
-      followers: data["followers"]?? 0, 
+      userId: map['userId'] ?? '',
+      name: map['name'] ?? '',
+      email: map['email'] ?? '',
+      jobTitle: map['jobTitle'] ?? '',
+      imageUrl: map['imageUrl'] ?? '',
+      createdAt: (map['createdAt'] as Timestamp).toDate(),
+      updatedAt: (map['updatedAt'] as Timestamp).toDate(),
+      password: map['password'] ?? '',
+      followers: map['followers'] ?? 0,
     );
   }
 

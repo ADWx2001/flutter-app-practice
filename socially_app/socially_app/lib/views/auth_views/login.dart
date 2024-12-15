@@ -1,9 +1,7 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-// import 'package:socially/services/auth/auth_service.dart';
+import 'package:socially_app/services/auth/auth_service.dart';
 import 'package:socially_app/utils/constants/colors.dart';
 import 'package:socially_app/widgets/reusable/custom_button.dart';
 import 'package:socially_app/widgets/reusable/custom_input.dart';
@@ -40,33 +38,33 @@ class LoginScreen extends StatelessWidget {
 
 
   // Sign in with email and password
-  // Future<void> _signInWithEmailAndPassword(BuildContext context) async {
-  //   try {
-  //     // Sign in with email and password
-  //     await AuthService().signInWithEmailAndPassword(
-  //       email: _emailController.text,
-  //       password: _passwordController.text,
-  //     );
+  Future<void> _signInWithEmailAndPassword(BuildContext context) async {
+    try {
+      // Sign in with email and password
+      await AuthService().signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
 
-  //     GoRouter.of(context).go('/main-screen');
-  //   } catch (e) {
-  //     print('Error signing in with email and password: $e');
-  //     showDialog(
-  //       // ignore: use_build_context_synchronously
-  //       context: context,
-  //       builder: (context) => AlertDialog(
-  //         title: const Text('Error'),
-  //         content: Text('Error signing in with email and password: $e'),
-  //         actions: [
-  //           TextButton(
-  //             onPressed: () => Navigator.of(context).pop(),
-  //             child: const Text('OK'),
-  //           ),
-  //         ],
-  //       ),
-  //     );
-  //   }
-  // }
+      GoRouter.of(context).go('/main-screen');
+    } catch (e) {
+      print('Error signing in with email and password: $e');
+      showDialog(
+        // ignore: use_build_context_synchronously
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: Text('Error signing in with email and password: $e'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
 
 
   @override
@@ -119,15 +117,15 @@ class LoginScreen extends StatelessWidget {
                       },
                     ),
                     const SizedBox(height: 24),
-                    // ReusableButton(
-                    //   text: 'Log in',
-                    //   width: MediaQuery.of(context).size.width,
-                    //   onPressed: () async {
-                    //     if (_formKey.currentState?.validate() ?? false) {
-                    //       await _signInWithEmailAndPassword(context);
-                    //     }
-                    //   },
-                    // ),
+                    ReusableButton(
+                      text: 'Log in',
+                      width: MediaQuery.of(context).size.width,
+                      onPressed: () async {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          await _signInWithEmailAndPassword(context);
+                        }
+                      },
+                    ),
                     const SizedBox(height: 30),
                     Text(
                       "Sign in with Google to access the app's features",

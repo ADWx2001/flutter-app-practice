@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:socially_app/models/user_model.dart';
-// import 'package:socially_app/services/users/user_service.dart';
-// import 'package:socially_app/services/users/user_storage.dart';
+import 'package:socially_app/services/users/user_sevices.dart';
+import 'package:socially_app/services/users/user_storage.dart';
 import 'package:socially_app/utils/constants/colors.dart';
 import 'package:socially_app/widgets/reusable/custom_button.dart';
 import 'package:socially_app/widgets/reusable/custom_input.dart';
@@ -39,50 +39,50 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   // Sign up with email and password
-  // Future<void> _createUser(BuildContext context) async {
-  //   try {
-  //     //store the user image in storage and get the download url
-  //     if (_imageFile != null) {
-  //       final imageUrl = await UserProfileStorageService().uploadImage(
-  //         profileImage: _imageFile!,
-  //         userEmail: _emailController.text,
-  //       );
-  //       _imageUrlController.text = imageUrl;
-  //     }
+  Future<void> _createUser(BuildContext context) async {
+    try {
+      //store the user image in storage and get the download url
+      if (_imageFile != null) {
+        final imageUrl = await UserProfileStorageService().uploadImage(
+          profileImage: _imageFile!,
+          userEmail: _emailController.text,
+        );
+        _imageUrlController.text = imageUrl;
+      }
 
-  //     //save user to firestore
-  //     UserService().saveUser(
-  //       UserModel(
-  //         userId: "",
-  //         name: _nameController.text,
-  //         email: _emailController.text,
-  //         jobTitle: _jobTitleController.text,
-  //         imageUrl: _imageUrlController.text,
-  //         createdAt: DateTime.now(),
-  //         updatedAt: DateTime.now(),
-  //         password: _passwordController.text,
-  //         followers: 0,
-  //       ),
-  //     );
+      //save user to firestore
+      UserService().saveUser(
+        UserModel(
+          userId: "",
+          name: _nameController.text,
+          email: _emailController.text,
+          jobTitle: _jobTitleController.text,
+          imageUrl: _imageUrlController.text,
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+          password: _passwordController.text,
+          followers: 0,
+        ),
+      );
 
-  //     //show snackbar
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(
-  //         content: Text('User created successfully'),
-  //       ),
-  //     );
+      //show snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('User created successfully'),
+        ),
+      );
 
-  //     GoRouter.of(context).go('/main-screen');
-  //   } catch (e) {
-  //     print('Error signing up with email and password: $e');
-  //     //show snackbar
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text('Error signing up with email and password: $e'),
-  //       ),
-  //     );
-  //   }
-  // }
+      GoRouter.of(context).go('/main-screen');
+    } catch (e) {
+      print('Error signing up with email and password: $e');
+      //show snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error signing up with email and password: $e'),
+        ),
+      );
+    }
+  }
 
 
 
@@ -205,15 +205,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
                       ),
                       const SizedBox(height: 16),
-                      // ReusableButton(
-                      //   text: 'Sign Up',
-                      //   width: MediaQuery.of(context).size.width,
-                      //   onPressed: () async {
-                      //     if (_formKey.currentState?.validate() ?? false) {
-                      //       await _createUser(context);
-                      //     }
-                      //   },
-                      // ),
+                      ReusableButton(
+                        text: 'Sign Up',
+                        width: MediaQuery.of(context).size.width,
+                        onPressed: () async {
+                          if (_formKey.currentState?.validate() ?? false) {
+                            await _createUser(context);
+                          }
+                        },
+                      ),
                       const SizedBox(height: 16),
                       TextButton(
                         onPressed: () {
