@@ -2,7 +2,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:socially_app/router/router.dart';
 import 'package:socially_app/services/exceptions/exceptions.dart';
 
 class AuthService {
@@ -47,6 +49,7 @@ class AuthService {
     try {
       await _auth.signOut();
       print('Signed out');
+      //RouterClass().router.go("/logiin");
     } on FirebaseAuthException catch (e) {
       print('Error signing out: ${mapFirebaseAuthExceptionCode(e.code)}');
       throw Exception(mapFirebaseAuthExceptionCode(e.code));

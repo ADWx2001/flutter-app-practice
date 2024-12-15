@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:socially_app/views/auth_views/login.dart';
 import 'package:socially_app/views/auth_views/register.dart';
-import 'package:socially_app/views/main_view/main_screen.dart';
+import 'package:socially_app/views/main_screen.dart';
 import 'package:socially_app/views/res/mobile_layout.dart';
 import 'package:socially_app/views/res/responsive_layout.dart';
 import 'package:socially_app/views/res/web_layout.dart';
@@ -15,7 +15,7 @@ import 'package:socially_app/views/res/web_layout.dart';
 
 class RouterClass {
   final router = GoRouter(
-    initialLocation: "/register",
+    initialLocation: "/",
     errorPageBuilder: (context, state) {
       return const MaterialPage<dynamic>(
         child: Scaffold(
