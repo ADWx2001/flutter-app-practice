@@ -29,7 +29,7 @@ class RouterClass {
       //wrapper
       GoRoute(
         path: "/",
-        name: "wrapper",
+        name: "responsive",
         builder: (context, state) {
           //return const Wrapper();
           return ResponsiveLayout(
