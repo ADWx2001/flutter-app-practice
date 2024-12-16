@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:socially_app/utils/functions/functions.dart';
 
@@ -44,7 +46,7 @@ class Post {
     return Post(
       postId: data['postId'] ?? "",
       postCaption: data['postCaption'] ?? "",
-      mood: data['mood'] ?? "",
+      mood: MoodExtension.fromString( data['mood'] ?? 'happy'),
       userId: data['userId'] ?? "",
       userName: data['userName'] ?? "",
       profileimage: data['profileimage'] ?? "",

@@ -47,4 +47,14 @@ class FeedService {
       print("Error saving post: $error");
     }
   }
+
+
+  // fetch the posts as stream
+  Stream<List<Post>> getPostStream(){
+    return _collectionReference.snapshots().map((snapshot){
+      return snapshot.docs.map((doc){
+        return Post.fromJson(doc.data() as Map<String, dynamic>);
+      }).toList();
+    });
+  } 
 }
