@@ -32,7 +32,7 @@ class Post {
       "mood": mood.name,
       "userId": userId,
       "userName": userName,
-      "profileimage": profileimage,
+      "profImage": profileimage,
       "likes": likes,
       "datePublished": Timestamp.fromDate(datePublished),
       "postUrl": postUrl,
