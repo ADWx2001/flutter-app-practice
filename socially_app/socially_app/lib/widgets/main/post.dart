@@ -27,61 +27,61 @@ class _PostWidgetState extends State<PostWidget> {
   bool _isLiked = false; // Track if the post is liked
 
   @override
-  // void initState() {
-  //   super.initState();
-  //   _checkIfLiked();
-  // }
+  void initState() {
+    super.initState();
+    _checkIfLiked();
+  }
 
-  // Check if the user has liked the post
-  // Future<void> _checkIfLiked() async {
-  //   final hasLiked = await FeedService().hasUserLikedPost(
-  //     postId: widget.post.postId,
-  //     userId: widget.currentUserId,
-  //   );
-  //   setState(() {
-  //     _isLiked = hasLiked;
-  //   });
-  // }
+  //Check if the user has liked the post
+  Future<void> _checkIfLiked() async {
+    final hasLiked = await FeedService().hasUserLikedPost(
+      postId: widget.post.postId,
+      userId: widget.currentUserId,
+    );
+    setState(() {
+      _isLiked = hasLiked;
+    });
+  }
 
   // Method to like and dislike a post
-  // void _likePost() async {
-  //   try {
-  //     if (_isLiked) {
-  //       await FeedService().unlikePost(
-  //         postId: widget.post.postId,
-  //         userId: widget.currentUserId,
-  //       );
-  //       setState(() {
-  //         _isLiked = false;
-  //       });
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(
-  //           content: Text('Post unliked'),
-  //         ),
-  //       );
-  //     } else {
-  //       await FeedService().likePost(
-  //         postId: widget.post.postId,
-  //         userId: widget.currentUserId,
-  //       );
-  //       setState(() {
-  //         _isLiked = true;
-  //       });
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(
-  //           content: Text('Post liked'),
-  //         ),
-  //       );
-  //     }
-  //   } catch (e) {
-  //     print('Error liking/unliking post: $e');
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(
-  //         content: Text('Failed to like/unlike post'),
-  //       ),
-  //     );
-  //   }
-  // }
+  void _likePost() async {
+    try {
+      if (_isLiked) {
+        await FeedService().unlikePost(
+          postId: widget.post.postId,
+          userId: widget.currentUserId,
+        );
+        setState(() {
+          _isLiked = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Post unliked'),
+          ),
+        );
+      } else {
+        await FeedService().likePost(
+          postId: widget.post.postId,
+          userId: widget.currentUserId,
+        );
+        setState(() {
+          _isLiked = true;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Post liked'),
+          ),
+        );
+      }
+    } catch (e) {
+      print('Error liking/unliking post: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Failed to like/unlike post'),
+        ),
+      );
+    }
+  }
 
 
 
@@ -201,7 +201,7 @@ class _PostWidgetState extends State<PostWidget> {
                         _isLiked ? Icons.favorite : Icons.favorite_border,
                         color: _isLiked ? Colors.red : mainWhiteColor,
                       ),
-                      onPressed: (){},
+                      onPressed: _likePost,
                     ),
                     Text(
                       "${widget.post.likes} likes",

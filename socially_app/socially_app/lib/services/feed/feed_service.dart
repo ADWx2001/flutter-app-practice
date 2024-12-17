@@ -90,4 +90,81 @@ class FeedService {
     }
   }
 
+
+  //[ Here the like post methode will take two parameters the post id and the user id and it will add a document to the likes subcollection and update the likes count in the post document.]
+  Future<void> likePost(
+      {required String postId, required String userId}) async {
+    try {
+      final postLikesRef =
+          _collectionReference.doc(postId).collection('likes').doc(userId);
+
+      // Add a document to the likes subcollection
+      await postLikesRef.set({'likedAt': Timestamp.now()});
+
+      // Update the likes count in the post document
+      final postDoc = await _collectionReference.doc(postId).get();
+      final post = Post.fromJson(postDoc.data() as Map<String, dynamic>);
+      final newLikesCount = post.likes + 1;
+
+      await _collectionReference.doc(postId).update({'likes': newLikesCount});
+
+      print('Post liked successfully');
+    } catch (error) {
+      print('Error liking post: $error');
+    }
+  }
+
+  //create a methode to unlike a post
+  // Unlike a post
+  Future<void> unlikePost(
+      {required String postId, required String userId}) async {
+    try {
+      final postLikesRef =
+          _collectionReference.doc(postId).collection('likes').doc(userId);
+
+      // Delete the document from the likes subcollection
+      await postLikesRef.delete();
+
+      // Update the likes count in the post document
+      final postDoc = await _collectionReference.doc(postId).get();
+      final post = Post.fromJson(postDoc.data() as Map<String, dynamic>);
+      final newLikesCount = post.likes - 1;
+
+      await _collectionReference.doc(postId).update({'likes': newLikesCount});
+
+      print('Post unliked successfully');
+    } catch (error) {
+      print('Error unliking post: $error');
+    }
+  }
+
+  // Check if a user has liked a post
+  Future<bool> hasUserLikedPost(
+      {required String postId, required String userId}) async {
+    try {
+      final postLikesRef =
+          _collectionReference.doc(postId).collection('likes').doc(userId);
+
+      // Check if the like document exists
+      final doc = await postLikesRef.get();
+      return doc.exists;
+    } catch (error) {
+      print('Error checking if user liked post: $error');
+      return false;
+    }
+  }
+
+  // Get the count of posts for a user
+  Future<int> getUserPostsCount(String userId) async {
+    try {
+      final snapshot =
+          await _collectionReference.where('userId', isEqualTo: userId).get();
+      return snapshot.size;
+    } catch (error) {
+      print('Error getting user posts count: $error');
+      return 0;
+    }
+  }
+
+
 }
