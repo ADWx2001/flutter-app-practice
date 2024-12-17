@@ -1,44 +1,74 @@
-
 import 'package:flutter/material.dart';
 import 'package:socially_app/models/post_model.dart';
+import 'package:socially_app/services/auth/auth_service.dart';
 import 'package:socially_app/services/feed/feed_service.dart';
+import 'package:socially_app/utils/constants/colors.dart';
+import 'package:socially_app/widgets/main/post.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({super.key});
 
+  //handle post delete
+
+  Future<void> _deletePost(
+      String postId, String postUrl, BuildContext context) async {
+    try {
+      await FeedService().deletePost(
+        postId: postId,
+        postUrl: postUrl,
+      );
+
+      //show a snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Post deleted successfully'),
+        ),
+      );
+    } catch (e) {
+      print('Error deleting post: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error deleting post'),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder(
+      body: StreamBuilder<List<Post>>(
         stream: FeedService().getPostStream(),
-        builder: (context, snapshot){
-          if(snapshot.connectionState == ConnectionState.waiting){
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }if(snapshot.hasError){
-            print(snapshot.toString());
-            return const Center(
-              child: Text("Failed to fetch posts"),
-            );
-          }if(!snapshot.hasData || snapshot.data!.isEmpty){
-            return const Center(
-              child: Text("No post availabel to show"),
-            );
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('No posts available.'));
           }
 
-
-          final List<Post> posts = snapshot.data!;
-
+          final posts = snapshot.data!;
 
           return ListView.builder(
             itemCount: posts.length,
             itemBuilder: (context, index) {
               final post = posts[index];
-
               return Column(
                 children: [
-                  Text(post.postCaption)
+                  PostWidget(
+                    post: post,
+                    currentUserId: AuthService().getCurrentUser()!.uid,
+                    onEdit: () {},
+                    onDelete: () async {
+                      await _deletePost(post.postId, post.postUrl, context);
+                    },
+                  ),
+                  Divider(
+                    color: mainWhiteColor.withOpacity(0.1),
+                  )
                 ],
               );
             },
@@ -47,4 +77,6 @@ class FeedScreen extends StatelessWidget {
       ),
     );
   }
+
+  getUserPosts(String userId) {}
 }

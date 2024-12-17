@@ -57,4 +57,37 @@ class FeedService {
       }).toList();
     });
   } 
+
+  //Delete Post 
+  // Delete a post from the Firestore database
+  Future<void> deletePost(
+      {required String postId, required String postUrl}) async {
+    try {
+      await _collectionReference.doc(postId).delete();
+      //await FeedStorage().deleteImage(imageUrl: postUrl);
+      print("Post deleted successfully");
+    } catch (error) {
+      print('Error deleting post: $error');
+    }
+  }
+
+  //get all posts images form the user
+  Future<List<String>> getUserPosts(String userId) async {
+    try {
+      final userPosts = await _collectionReference
+          .where('userId', isEqualTo: userId)
+          .get()
+          .then((snapshot) {
+        return snapshot.docs.map((doc) {
+          return Post.fromJson(doc.data() as Map<String, dynamic>);
+        }).toList();
+      });
+
+      return userPosts.map((post) => post.postUrl).toList();
+    } catch (error) {
+      print('Error fetching user posts: $error');
+      return [];
+    }
+  }
+
 }
