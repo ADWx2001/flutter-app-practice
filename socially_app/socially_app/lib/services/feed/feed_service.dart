@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:socially_app/models/post_model.dart';
+import 'package:socially_app/services/auth/auth_service.dart';
 import 'package:socially_app/services/feed/feed_storage.dart';
 import 'package:socially_app/utils/functions/functions.dart';
 
@@ -27,7 +29,7 @@ class FeedService {
         postId: "",
         postCaption: postDetails["postCaption"] as String? ?? "",
         mood: MoodExtension.fromString(postDetails["mood"] ?? "happy"),
-        userId: postDetails["userid"] as String? ?? "",
+        userId: postDetails["userId"] as String? ?? "",
         userName: postDetails["userName"] as String? ?? "",
         profileimage: postDetails["profImage"] as String? ?? "",
         likes: 0,
@@ -109,6 +111,8 @@ class FeedService {
       await _collectionReference.doc(postId).update({'likes': newLikesCount});
 
       print('Post liked successfully');
+      print(AuthService().getCurrentUser()!.uid);
+      
     } catch (error) {
       print('Error liking post: $error');
     }
