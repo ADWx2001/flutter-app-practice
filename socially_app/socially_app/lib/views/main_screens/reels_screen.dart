@@ -1,16 +1,54 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:socially_app/models/reel_model.dart';
+import 'package:socially_app/services/reel/reel_service.dart';
+import 'package:socially_app/widgets/main/add_reel.dart';
+import 'package:socially_app/widgets/main/reel_widget.dart';
 
-class ReelsScreen extends StatefulWidget {
-  const ReelsScreen({super.key});
+class ReelsScreen extends StatelessWidget {
+  const ReelsScreen({Key? key}) : super(key: key);
 
-  @override
-  State<ReelsScreen> createState() => _ReelsScreenState();
-}
-
-class _ReelsScreenState extends State<ReelsScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Reels'),
+      ),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: ReelService().getReels(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return const Center(child: Text('No reels available'));
+          }
+
+          final reels = snapshot.data!.docs
+              .map((doc) => ReelModel.fromJson(doc.data() as Map<String, dynamic>))
+              .toList();
+
+          return ListView.builder(
+            itemCount: reels.length,
+            itemBuilder: (context, index) {
+              final reel = reels[index];
+              return ReelWidget(reel: reel);
+            },
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showAddReelModal(context),
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+
+  void _showAddReelModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => AddReelModal(),
+    );
   }
 }
