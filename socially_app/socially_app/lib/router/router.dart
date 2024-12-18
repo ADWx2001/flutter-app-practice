@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:socially_app/models/user_model.dart';
 import 'package:socially_app/views/auth_views/login.dart';
 import 'package:socially_app/views/auth_views/register.dart';
 import 'package:socially_app/views/main_screen.dart';
+import 'package:socially_app/views/main_screens/single_user_screen.dart';
 import 'package:socially_app/views/res/mobile_layout.dart';
 import 'package:socially_app/views/res/responsive_layout.dart';
 import 'package:socially_app/views/res/web_layout.dart';
@@ -63,6 +66,16 @@ class RouterClass {
         path: "/main-screen",
         builder: (context, state) {
           return const MainScreen();
+        },
+      ),
+
+      GoRoute(
+        name: "profile-screen",
+        path: "/profile-screen",
+        builder: (context, state) {
+          final UserModel user = state.extra as UserModel;
+          return SingleUserScreen(user: user);
+          //return const SingleUserScreen();
         },
       ),
 

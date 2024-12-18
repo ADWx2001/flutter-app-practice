@@ -30,7 +30,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _fetchAllUsers();
   }
@@ -68,19 +67,22 @@ class _SearchScreenState extends State<SearchScreen> {
                 border: inputBorder,
                 focusedBorder: inputBorder,
                 enabledBorder: inputBorder,
+                filled: true,
                 prefixIcon: const Icon(
                   Icons.search,
                   size: 20,
                 ),
               ),
-              onChanged: (value) {},
+              onChanged: (value) {
+                _filterUsers(value);
+              },
             ),
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: _users.length,
+              itemCount: _filteredUsers.length,
               itemBuilder: (context, index) {
-                final UserModel user = _users[index];
+                final UserModel user = _filteredUsers[index];
                 return ListTile(
                   leading: CircleAvatar(
                     backgroundImage: user.imageUrl.isNotEmpty
